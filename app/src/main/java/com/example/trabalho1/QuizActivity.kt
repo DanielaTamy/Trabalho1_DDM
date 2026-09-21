@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import kotlin.random.Random
-import kotlin.jvm.java
 
 class QuizActivity : AppCompatActivity() {
 
@@ -24,20 +23,20 @@ class QuizActivity : AppCompatActivity() {
     private var userName = ""
 
     private val correctAnswers = arrayOf(
-        "Brasil", "Argentina", "França", "Japão", "Alemanha",
-        "Itália", "Portugal", "Espanha", "Canadá", "México",
-        "Chile", "Uruguai", "China", "Índia", "Austrália"
+        "Andorra", "Emirados Árabes", "Afeganistão", "Antígua e Barbuda", "Anguilla",
+        "São Bartolomeu", "Bermudas", "Brunei", "Bolívia", "Países Baixos Caribenhos",
+        "Comunidade da África Oriental", "Equador", "Estônia", "Egito", "Saara Ocidental"
     )
 
     private val flags = arrayOf(
         R.drawable.ad, R.drawable.ae,
-        R.drawable.af, R.drawable.ai,
-        R.drawable.bl, R.drawable.bm,
-        R.drawable.bn, R.drawable.bo,
-        R.drawable.bq, R.drawable.eac,
-        R.drawable.ec, R.drawable.ee,
-        R.drawable.eg, R.drawable.eh,
-        R.drawable.ag
+        R.drawable.af, R.drawable.ag,
+        R.drawable.ai, R.drawable.bl,
+        R.drawable.bm, R.drawable.bn,
+        R.drawable.bo, R.drawable.bq,
+        R.drawable.eac, R.drawable.ec,
+        R.drawable.ee, R.drawable.eg,
+        R.drawable.eh
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,7 +49,7 @@ class QuizActivity : AppCompatActivity() {
             v.setPadding(bars.left, bars.top, bars.right, bars.bottom)
             insets
         }
-
+/*
         val bundle = intent.extras
         val name = bundle?.getString("userName")
 
@@ -61,6 +60,8 @@ class QuizActivity : AppCompatActivity() {
         }
 
         userName = name
+        */
+        userName = "Laura Teste"
         sortQuestions()
         showQuestion()
     }
@@ -125,21 +126,40 @@ class QuizActivity : AppCompatActivity() {
         findViewById<View>(R.id.buttonNext).visibility = View.VISIBLE
     }
 
+    // NOVA FUNÇÃO IMPLEMENTADA
+    fun answerQuestion(view: View) {
+        if (answered) return
+
+        val input = findViewById<EditText>(R.id.editTextAnswer)
+        val respostaDigitada = input.text.toString()
+
+        // Validação de entrada vazia exigida pelo roadmap
+        if (respostaDigitada.trim().isEmpty()) {
+            Toast.makeText(this, "Informe o nome de um país.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val index = gameQuestions[currentQuestion]
+        val paisCorreto = correctAnswers[index]
+
+        // Comparação sem diferenciar maiúsculas/minúsculas conforme documento do grupo
+        val isCorrect = respostaDigitada.trim().equals(paisCorreto, ignoreCase = true)
+
+        recordAnswer(isCorrect)
+    }
+
     fun nextQuestion(view: View) {
         if (!answered) return
         currentQuestion++
         if (currentQuestion < totalQuestions) {
             showQuestion()
         } else {
-            // COMENTADO TEMPORARIAMENTE PARA NÃO DAR ERRO DE COMPILAÇÃO
-            // O código real vai funcionar quando a Dani juntar as branches
-
-            // val next = Intent(this, ResultActivity::class.java)
-            // next.putExtra("userName", userName)
-            // next.putExtra("score", score)
-            // startActivity(next)
-
-            finish() // Apenas encerra o quiz por enquanto
+            // NAVEGAÇÃO DESCOMENTADA: Como ResultActivity agora existe, o Intent funcionará.
+            val next = Intent(this, ResultActivity::class.java)
+            next.putExtra("userName", userName)
+            next.putExtra("score", score)
+            startActivity(next)
+            finish()
         }
     }
 }
