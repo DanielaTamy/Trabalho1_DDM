@@ -11,7 +11,6 @@
     android:paddingEnd="24dp"
     tools:context=".QuizActivity">
 
-    <!-- Número da pergunta -->
     <TextView
         android:id="@+id/textViewQuestionNumber"
         android:layout_width="wrap_content"
@@ -25,7 +24,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Bandeira -->
     <ImageView
         android:id="@+id/imageViewFlag"
         android:layout_width="0dp"
@@ -37,7 +35,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewQuestionNumber" />
 
-    <!-- Campo para resposta -->
     <EditText
         android:id="@+id/editTextAnswer"
         android:layout_width="0dp"
@@ -53,7 +50,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imageViewFlag" />
 
-    <!-- Botão Responder -->
     <Button
         android:id="@+id/buttonAnswer"
         android:layout_width="0dp"
@@ -66,7 +62,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editTextAnswer" />
 
-    <!-- Mensagem de resposta correta -->
     <TextView
         android:id="@+id/textViewCorrect"
         android:layout_width="0dp"
@@ -82,7 +77,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/buttonAnswer" />
 
-    <!-- Mensagem de resposta incorreta -->
     <TextView
         android:id="@+id/textViewIncorrect"
         android:layout_width="0dp"
@@ -97,7 +91,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewCorrect" />
 
-    <!-- Botão Próxima -->
     <Button
         android:id="@+id/buttonNext"
         android:layout_width="0dp"

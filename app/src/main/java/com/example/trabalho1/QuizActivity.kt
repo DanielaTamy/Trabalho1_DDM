@@ -49,7 +49,7 @@ class QuizActivity : AppCompatActivity() {
             v.setPadding(bars.left, bars.top, bars.right, bars.bottom)
             insets
         }
-/*
+
         val bundle = intent.extras
         val name = bundle?.getString("userName")
 
@@ -60,8 +60,7 @@ class QuizActivity : AppCompatActivity() {
         }
 
         userName = name
-        */
-        userName = "Laura Teste"
+
         sortQuestions()
         showQuestion()
     }
@@ -126,14 +125,12 @@ class QuizActivity : AppCompatActivity() {
         findViewById<View>(R.id.buttonNext).visibility = View.VISIBLE
     }
 
-    // NOVA FUNÇÃO IMPLEMENTADA
     fun answerQuestion(view: View) {
         if (answered) return
 
         val input = findViewById<EditText>(R.id.editTextAnswer)
         val respostaDigitada = input.text.toString()
 
-        // Validação de entrada vazia exigida pelo roadmap
         if (respostaDigitada.trim().isEmpty()) {
             Toast.makeText(this, "Informe o nome de um país.", Toast.LENGTH_SHORT).show()
             return
@@ -142,7 +139,6 @@ class QuizActivity : AppCompatActivity() {
         val index = gameQuestions[currentQuestion]
         val paisCorreto = correctAnswers[index]
 
-        // Comparação sem diferenciar maiúsculas/minúsculas conforme documento do grupo
         val isCorrect = respostaDigitada.trim().equals(paisCorreto, ignoreCase = true)
 
         recordAnswer(isCorrect)
@@ -154,7 +150,6 @@ class QuizActivity : AppCompatActivity() {
         if (currentQuestion < totalQuestions) {
             showQuestion()
         } else {
-            // NAVEGAÇÃO DESCOMENTADA: Como ResultActivity agora existe, o Intent funcionará.
             val next = Intent(this, ResultActivity::class.java)
             next.putExtra("userName", userName)
             next.putExtra("score", score)
