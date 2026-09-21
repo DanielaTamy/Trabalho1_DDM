@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import kotlin.random.Random
+import kotlin.jvm.java
 
 class QuizActivity : AppCompatActivity() {
 
@@ -29,14 +30,14 @@ class QuizActivity : AppCompatActivity() {
     )
 
     private val flags = arrayOf(
-        R.drawable.flag_brasil, R.drawable.flag_argentina,
-        R.drawable.flag_franca, R.drawable.flag_japao,
-        R.drawable.flag_alemanha, R.drawable.flag_italia,
-        R.drawable.flag_portugal, R.drawable.flag_espanha,
-        R.drawable.flag_canada, R.drawable.flag_mexico,
-        R.drawable.flag_chile, R.drawable.flag_uruguai,
-        R.drawable.flag_china, R.drawable.flag_india,
-        R.drawable.flag_australia
+        R.drawable.ad, R.drawable.ae,
+        R.drawable.af, R.drawable.ai,
+        R.drawable.bl, R.drawable.bm,
+        R.drawable.bn, R.drawable.bo,
+        R.drawable.bq, R.drawable.eac,
+        R.drawable.ec, R.drawable.ee,
+        R.drawable.eg, R.drawable.eh,
+        R.drawable.ag
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -130,11 +131,15 @@ class QuizActivity : AppCompatActivity() {
         if (currentQuestion < totalQuestions) {
             showQuestion()
         } else {
-            val next = Intent(this, ResultActivity::class.java)
-            next.putExtra("userName", userName)
-            next.putExtra("score", score)
-            startActivity(next)
-            finish()
+            // COMENTADO TEMPORARIAMENTE PARA NÃO DAR ERRO DE COMPILAÇÃO
+            // O código real vai funcionar quando a Dani juntar as branches
+
+            // val next = Intent(this, ResultActivity::class.java)
+            // next.putExtra("userName", userName)
+            // next.putExtra("score", score)
+            // startActivity(next)
+
+            finish() // Apenas encerra o quiz por enquanto
         }
     }
 }
