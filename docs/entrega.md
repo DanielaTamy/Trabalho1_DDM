@@ -1,9 +1,8 @@
-# Entrega do Trabalho 1 - DDM
+# Trabalho 1 - Desenvolvimento de Dispositivos Móveis
+**Aplicativo:** FlagQuiz  
+**Repositório Oficial:** https://github.com/DanielaTamy/Trabalho1_DDM
 
-## Integrantes do Grupo
-* **Nome 1:** Nathalia Lyra | **GRR:** GRR20245388
-* **Nome 2:** Laura Klemba | **GRR:** GRR20243748
-* **Nome 2:** Daniela Tamy | **GRR:** GRR20241665
-
-## Repositório
-* **Link Oficial:** https://github.com/DanielaTamy/Trabalho1_DDM
+## Alunas Integrantes
+* **Daniela Tamy Yuki** - GRR20241665
+* **Laura Klemba Cordeiro** - GRR20243748
+* **Nathalia Lyra Varela de Albuquerque** - GRR20245377

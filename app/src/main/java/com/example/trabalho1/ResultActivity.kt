@@ -1,20 +1,50 @@
 package com.example.trabalho1
 
 import android.os.Bundle
+import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class ResultActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_result)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+
+        ViewCompat.setOnApplyWindowInsetsListener(
+            findViewById(R.id.main)
+        ) { v, insets ->
+            val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(bars.left, bars.top, bars.right, bars.bottom)
             insets
+        }
+
+        val bundle = intent.extras
+        if (bundle == null) {
+            Toast.makeText(this, "Resultado indisponível.", Toast.LENGTH_SHORT).show()
+            finish()
+            return
+        }
+
+        val name = bundle.getString("userName")
+        val score = bundle.getInt("score", -1)
+
+        if (name.isNullOrEmpty() || score < 0 || score > 100) {
+            Toast.makeText(this, "Dados inválidos.", Toast.LENGTH_SHORT).show()
+            finish()
+            return
+        }
+
+        findViewById<TextView>(R.id.textViewName).text = "Jogador: $name"
+        findViewById<TextView>(R.id.textViewScore).text = "Pontuação: $score de 100"
+
+        findViewById<Button>(R.id.buttonRestart).setOnClickListener {
+            finish()
         }
     }
 }
