@@ -24,24 +24,24 @@ class ResultActivity : AppCompatActivity() {
             insets
         }
 
-        val bundle = intent.extras
-        if (bundle == null) {
+        val dados = intent.extras
+        if (dados == null) {
             Toast.makeText(this, "Resultado indisponível.", Toast.LENGTH_SHORT).show()
             finish()
             return
         }
 
-        val name = bundle.getString("userName")
-        val score = bundle.getInt("score", -1)
+        val nome = dados.getString("userName")
+        val pontuacao = dados.getInt("score", -1)
 
-        if (name.isNullOrEmpty() || score < 0 || score > 100) {
+        if (nome.isNullOrEmpty() || pontuacao < 0 || pontuacao > 100) {
             Toast.makeText(this, "Dados inválidos.", Toast.LENGTH_SHORT).show()
             finish()
             return
         }
 
-        findViewById<TextView>(R.id.textViewName).text = "Jogador: $name"
-        findViewById<TextView>(R.id.textViewScore).text = "Pontuação: $score de 100"
+        findViewById<TextView>(R.id.textViewName).text = "Jogador: $nome"
+        findViewById<TextView>(R.id.textViewScore).text = "Pontuação: $pontuacao de 100"
 
         findViewById<Button>(R.id.buttonRestart).setOnClickListener {
             finish()

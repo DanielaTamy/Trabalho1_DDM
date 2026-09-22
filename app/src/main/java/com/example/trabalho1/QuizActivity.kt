@@ -15,28 +15,28 @@ import kotlin.random.Random
 
 class QuizActivity : AppCompatActivity() {
 
-    private var currentQuestion = 0
-    private var score = 0
-    private val totalQuestions = 5
-    private val gameQuestions = IntArray(5)
-    private var answered = false
-    private var userName = ""
+    private var perguntaAtual = 0
+    private var pontuacao = 0
+    private val totalPerguntas = 5
+    private val perguntasJogo = IntArray(5)
+    private var respondida = false
+    private var nomeUsuario = ""
 
-    private val correctAnswers = arrayOf(
+    private val respostasCorretas = arrayOf(
         "Andorra", "Emirados Árabes", "Afeganistão", "Antígua e Barbuda", "Anguilla",
         "São Bartolomeu", "Bermudas", "Brunei", "Bolívia", "Países Baixos Caribenhos",
-        "Comunidade da África Oriental", "Equador", "Estônia", "Egito", "Saara Ocidental"
+        "Brasil", "Equador", "Estônia", "Egito", "Saara Ocidental"
     )
 
-    private val flags = arrayOf(
-        R.drawable.ad, R.drawable.ae,
-        R.drawable.af, R.drawable.ag,
-        R.drawable.ai, R.drawable.bl,
-        R.drawable.bm, R.drawable.bn,
-        R.drawable.bo, R.drawable.bq,
-        R.drawable.eac, R.drawable.ec,
-        R.drawable.ee, R.drawable.eg,
-        R.drawable.eh
+    private val bandeiras = arrayOf(
+        R.drawable.flag_ad, R.drawable.flag_ae,
+        R.drawable.flag_af, R.drawable.flag_ag,
+        R.drawable.flag_ai, R.drawable.flag_bl,
+        R.drawable.flag_bm, R.drawable.flag_bn,
+        R.drawable.flag_bo, R.drawable.flag_bq,
+        R.drawable.flag_br, R.drawable.flag_ec,
+        R.drawable.flag_ee, R.drawable.flag_eg,
+        R.drawable.flag_eh
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,46 +50,46 @@ class QuizActivity : AppCompatActivity() {
             insets
         }
 
-        val bundle = intent.extras
-        val name = bundle?.getString("userName")
+        val dados = intent.extras
+        val nome = dados?.getString("userName")
 
-        if (name == null || name.isEmpty()) {
+        if (nome == null || nome.isEmpty()) {
             Toast.makeText(this, "Nome indisponível.", Toast.LENGTH_SHORT).show()
             finish()
             return
         }
 
-        userName = name
+        nomeUsuario = nome
 
         sortQuestions()
         showQuestion()
     }
 
     private fun sortQuestions() {
-        var position = 0
-        while (position < totalQuestions) {
-            val number = Random.nextInt(flags.size)
-            var repeated = false
-            for (i in 0 until position) {
-                if (gameQuestions[i] == number) {
-                    repeated = true
+        var posicao = 0
+        while (posicao < totalPerguntas) {
+            val numero = Random.nextInt(bandeiras.size)
+            var repetida = false
+            for (indiceAnterior in 0 until posicao) {
+                if (perguntasJogo[indiceAnterior] == numero) {
+                    repetida = true
                 }
             }
-            if (!repeated) {
-                gameQuestions[position] = number
-                position++
+            if (!repetida) {
+                perguntasJogo[posicao] = numero
+                posicao++
             }
         }
     }
 
     private fun showQuestion() {
-        val index = gameQuestions[currentQuestion]
+        val indice = perguntasJogo[perguntaAtual]
 
         findViewById<TextView>(R.id.textViewQuestionNumber)
-            .text = "${currentQuestion + 1} de $totalQuestions"
+            .text = "${perguntaAtual + 1} de $totalPerguntas"
 
         findViewById<ImageView>(R.id.imageViewFlag)
-            .setImageResource(flags[index])
+            .setImageResource(bandeiras[indice])
 
         findViewById<EditText>(R.id.editTextAnswer).setText("")
 
@@ -102,58 +102,58 @@ class QuizActivity : AppCompatActivity() {
         findViewById<View>(R.id.buttonNext).visibility = View.GONE
         findViewById<View>(R.id.buttonAnswer).visibility = View.VISIBLE
 
-        answered = false
+        respondida = false
     }
 
-    private fun recordAnswer(correct: Boolean) {
-        if (answered) return
-        val index = gameQuestions[currentQuestion]
-        val good = findViewById<TextView>(R.id.textViewCorrect)
-        val bad = findViewById<TextView>(R.id.textViewIncorrect)
+    private fun recordAnswer(correta: Boolean) {
+        if (respondida) return
+        val indice = perguntasJogo[perguntaAtual]
+        val mensagemCorreta = findViewById<TextView>(R.id.textViewCorrect)
+        val mensagemIncorreta = findViewById<TextView>(R.id.textViewIncorrect)
 
-        if (correct) {
-            score += 20
-            good.text = "Correto!"
-            good.visibility = View.VISIBLE
+        if (correta) {
+            pontuacao += 20
+            mensagemCorreta.text = "Correto!"
+            mensagemCorreta.visibility = View.VISIBLE
         } else {
-            bad.text = "Incorreto! Resposta: ${correctAnswers[index]}"
-            bad.visibility = View.VISIBLE
+            mensagemIncorreta.text = "Incorreto! Resposta: ${respostasCorretas[indice]}"
+            mensagemIncorreta.visibility = View.VISIBLE
         }
 
-        answered = true
+        respondida = true
         findViewById<View>(R.id.buttonAnswer).visibility = View.GONE
         findViewById<View>(R.id.buttonNext).visibility = View.VISIBLE
     }
 
-    fun answerQuestion(view: View) {
-        if (answered) return
+    fun answerQuestion(visualizacao: View) {
+        if (respondida) return
 
-        val input = findViewById<EditText>(R.id.editTextAnswer)
-        val respostaDigitada = input.text.toString()
+        val entradaResposta = findViewById<EditText>(R.id.editTextAnswer)
+        val respostaDigitada = entradaResposta.text.toString()
 
         if (respostaDigitada.trim().isEmpty()) {
             Toast.makeText(this, "Informe o nome de um país.", Toast.LENGTH_SHORT).show()
             return
         }
 
-        val index = gameQuestions[currentQuestion]
-        val paisCorreto = correctAnswers[index]
+        val indice = perguntasJogo[perguntaAtual]
+        val paisCorreto = respostasCorretas[indice]
 
-        val isCorrect = respostaDigitada.trim().equals(paisCorreto, ignoreCase = true)
+        val estaCorreta = respostaDigitada.trim().equals(paisCorreto, ignoreCase = true)
 
-        recordAnswer(isCorrect)
+        recordAnswer(estaCorreta)
     }
 
-    fun nextQuestion(view: View) {
-        if (!answered) return
-        currentQuestion++
-        if (currentQuestion < totalQuestions) {
+    fun nextQuestion(visualizacao: View) {
+        if (!respondida) return
+        perguntaAtual++
+        if (perguntaAtual < totalPerguntas) {
             showQuestion()
         } else {
-            val next = Intent(this, ResultActivity::class.java)
-            next.putExtra("userName", userName)
-            next.putExtra("score", score)
-            startActivity(next)
+            val proximaTela = Intent(this, ResultActivity::class.java)
+            proximaTela.putExtra("userName", nomeUsuario)
+            proximaTela.putExtra("score", pontuacao)
+            startActivity(proximaTela)
             finish()
         }
     }
