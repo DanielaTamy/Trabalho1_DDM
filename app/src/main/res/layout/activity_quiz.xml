@@ -6,7 +6,6 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F4F7F8"
     android:paddingStart="24dp"
     android:paddingEnd="24dp"
     tools:context=".QuizActivity">
@@ -17,7 +16,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="1 de 5"
-        android:textColor="#03252C"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,7 +38,6 @@
         android:layout_width="0dp"
         android:layout_height="52dp"
         android:layout_marginTop="24dp"
-        android:backgroundTint="#00B4D8"
         android:hint="Digite o nome do país"
         android:inputType="text"
         android:paddingStart="16dp"
